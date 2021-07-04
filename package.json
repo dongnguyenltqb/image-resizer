@@ -1,0 +1,19 @@
+{
+  "name": "resize-image-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.939.0",
+    "dotenv": "^10.0.0",
+    "fastify": "^3.18.1",
+    "fastify-multipart": "^4.0.7",
+    "pino": "^6.11.3",
+    "sharp": "^0.28.3"
+  }
+}
