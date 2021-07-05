@@ -26,13 +26,13 @@ fastify.get("/", (req, reply) => {
 });
 
 fastify.post("/", async function (req, reply) {
+  const data = await req.file();
+
+  let fileId = Math.random().toString(32).slice(2, 15);
+  let fileExt = path.extname(data.filename).substr(1);
+
+  let dest = path.join(__dirname, "/temp/", fileId + "." + fileExt);
   try {
-    const data = await req.file();
-
-    let fileId = Math.random().toString(32).slice(2, 15);
-    let fileExt = path.extname(data.filename).substr(1);
-
-    let dest = path.join(__dirname, "/temp/", fileId + "." + fileExt);
     // save file to disk
     await pump(data.file, fs.createWriteStream(dest));
 
@@ -101,6 +101,7 @@ fastify.post("/", async function (req, reply) {
       if (err) logger.error(err);
     });
   } catch (err) {
+    fs.unlink(dest, () => {});
     logger.error(err);
     reply.code(500);
     return {
